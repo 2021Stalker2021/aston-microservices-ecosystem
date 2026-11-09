@@ -1,5 +1,3 @@
-# aston-microservices-ecosystem
-• Containerized microservices ecosystem built with Java, Spring Cloud, Kafka, PostgreSQL, and Docker Compose.
 # Aston Microservices Ecosystem
 
 A containerized microservices architecture built with Java and Spring Cloud, orchestrated via Docker Compose. The system demonstrates service discovery, centralized configuration, API gateway routing, and asynchronous event-driven communication.
