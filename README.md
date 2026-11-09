@@ -1,23 +1,24 @@
 # Aston Microservices Ecosystem
 
-A containerized microservices architecture built with Java and Spring Cloud, orchestrated via Docker Compose. The system demonstrates service discovery, centralized configuration, API gateway routing, and asynchronous event-driven communication.
+A containerized microservices architecture built with **Java 21**, **Spring Boot 3**, and **Spring Cloud**, orchestrated via **Docker Compose**. The system demonstrates dynamic service discovery, centralized configuration, reactive API gateway routing, fault tolerance, and asynchronous event-driven communication.
 
 ## System Architecture
 
-The ecosystem consists of five independent microservices and infrastructure components running in an isolated Docker network:
+The ecosystem consists of five independent microservices (built with Gradle) and infrastructure components running in an isolated Docker network:
 
-* **[API Gateway](https://github.com)** (`Port 8080`) — Single entry point for external client requests, handling dynamic routing via Eureka.
-* **[Discovery Server](https://github.com)** (`Port 8761`) — Netflix Eureka server for service registration and discovery.
-* **[Config Server](https://github.com)** (`Port 8888`) — Spring Cloud Config server providing centralized external configuration (`native` profile).
-* **[User Service](https://github.com)** — Core business service managing user CRUD operations, backed by PostgreSQL (`Port 5433`) and publishing domain events to Kafka.
-* **[Notification Service](https://github.com)** — Asynchronous consumer listening to Apache Kafka topics (`Port 9092`) to process user event notifications.
+* **[API Gateway](https://github.com/2021Stalker2021/api-gateway)** (`Port 8080`) — Single entry point built with reactive Spring Cloud Gateway (Netty), handling dynamic load-balanced routing (`lb://`) via Eureka.
+* **[Discovery Server](https://github.com/2021Stalker2021/discovery-server)** (`Port 8761`) — Netflix Eureka server (`@EnableEurekaServer`) for dynamic service registration, heartbeat monitoring, and discovery.
+* **[Config Server](https://github.com/2021Stalker2021/config-server)** (`Port 8888`) — Spring Cloud Config server (`@EnableConfigServer`) providing centralized external configuration (`native` profile).
+* **[User Service](https://github.com/2021Stalker2021/user-service)** — Core business service managing user CRUD operations with Spring HATEOAS, MapStruct, and Swagger/OpenAPI, backed by **PostgreSQL 15** (`Port 5433`) and publishing domain events to Kafka.
+* **[Notification Service](https://github.com/2021Stalker2021/notification-service)** — Asynchronous Kafka consumer and REST service sending SMTP emails, protected by **Resilience4j** (`@CircuitBreaker` with fallback methods).
 
 ## Tech Stack
 
-* **Backend:** Java, Spring Boot, Spring Cloud (Gateway, Netflix Eureka, Config)
-* **Messaging:** Apache Kafka, Zookeeper
-* **Database:** PostgreSQL 15
-* **Infrastructure & DevOps:** Docker, Docker Compose (with custom healthchecks and startup dependency management)
+* **Core & Frameworks:** Java 21 (LTS), Spring Boot (3.2.2 / 3.4.1), Spring Cloud (Gateway, Netflix Eureka, Config), Spring Web, Spring Data JPA, Spring HATEOAS
+* **Messaging & Fault Tolerance:** Apache Kafka, Zookeeper, Resilience4j (Circuit Breaker)
+* **Database & Mapping:** PostgreSQL 15, Hibernate, MapStruct, Lombok
+* **Testing & Documentation:** JUnit 5, Testcontainers (PostgreSQL & Kafka), Springdoc OpenAPI (Swagger UI)
+* **Build & Infrastructure:** Gradle, Docker, Docker Compose (with custom healthchecks and startup dependency management)
 
 ## Getting Started
 
@@ -35,15 +36,15 @@ The ecosystem consists of five independent microservices and infrastructure comp
 
 2. **Clone all microservice repositories into the root directory:**
    ```bash
-   git clone https://github.com.git
-   git clone https://github.com.git
-   git clone https://github.com.git
-   git clone https://github.com.git
-   git clone https://github.com.git
+   git clone https://github.com
+   git clone https://github.com
+   git clone https://github.com
+   git clone https://github.com
+   git clone https://github.com
    ```
 
 3. **Prepare configuration directory:**
-   Ensure your service `.yml` / `.properties` files are placed inside the `./config-repo` folder (mounted to `/config-repo` inside the Config Server container).
+   Ensure your service configuration files (`api-gateway.yml`, `user-service.yml`, `notification-service.yml`) are placed inside the `./config-repo` folder (mounted to `/config-repo` inside the Config Server container).
 
 4. **Build and start the ecosystem:**
    ```bash
