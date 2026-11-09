@@ -36,11 +36,11 @@ The ecosystem consists of five independent microservices (built with Gradle) and
 
 2. **Clone all microservice repositories into the root directory:**
    ```bash
-   git clone https://github.com
-   git clone https://github.com
-   git clone https://github.com
-   git clone https://github.com
-   git clone https://github.com
+   git clone https://github.com/2021Stalker2021/discovery-server
+   git clone https://github.com/2021Stalker2021/config-server
+   git clone https://github.com/2021Stalker2021/notification-service
+   git clone https://github.com/2021Stalker2021/api-gateway
+   git clone https://github.com/2021Stalker2021/user-service
    ```
 
 3. **Prepare configuration directory:**
