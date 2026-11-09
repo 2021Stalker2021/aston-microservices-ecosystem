@@ -30,7 +30,7 @@ The ecosystem consists of five independent microservices (built with Gradle) and
 
 1. **Clone this infrastructure repository:**
    ```bash
-   git clone https://github.com
+   git clone https://github.com/2021Stalker2021/aston-microservices-ecosystem
    cd aston-microservices-ecosystem
    ```
 
